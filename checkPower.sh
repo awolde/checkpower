@@ -10,6 +10,7 @@ do
   nc -z -w 1 $REMOTE $PORT
   if [ $? -ne 0 ]; then
     powerLoss=$(($powerLoss + 1))
+    echo "cannot connect to remote host"
     if [[ $emailSent -lt 3 && $powerLoss -gt 5 ]]; then
       echo "Sending email to $EMAIL"
       echo "Power outage detected. `date`" | mail -s "ALERT: Power loss" -a "From: alert@fromblah.com" $EMAIL
